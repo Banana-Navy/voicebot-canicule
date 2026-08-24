@@ -1,0 +1,62 @@
+/* CODEX_BENTO_CURSOR_HOVER_V1 — fine-pointer enhancement only. */
+@property --bento-glow-color {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: transparent;
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .parallaxe[data-bento-hover="codex-v1"] {
+    --bento-cursor-x: 50%;
+    --bento-cursor-y: 50%;
+    --bento-shift-x: 0px;
+    --bento-shift-y: 0px;
+    --bento-glow-color: transparent;
+    background-image: radial-gradient(
+      280px circle at var(--bento-cursor-x) var(--bento-cursor-y),
+      var(--bento-glow-color),
+      transparent 68%
+    );
+    background-repeat: no-repeat;
+    transition:
+      translate 220ms var(--ease-out-soft),
+      scale 220ms var(--ease-out-soft),
+      box-shadow 260ms var(--ease-out-soft),
+      border-color 220ms ease,
+      filter 220ms ease,
+      --bento-glow-color 260ms ease;
+  }
+
+  .parallaxe[data-bento-hover="codex-v1"].bento-hover-active:not(:focus-within) {
+    --bento-glow-color: rgb(246 113 3 / 16%);
+    translate: var(--bento-shift-x) var(--bento-shift-y);
+    scale: 1.012;
+    border-color: color-mix(in srgb, var(--color-orange) 24%, var(--color-line));
+    box-shadow:
+      0 22px 52px rgb(0 33 71 / 16%),
+      0 4px 14px rgb(246 113 3 / 8%);
+    filter: saturate(1.025);
+    will-change: translate, scale, box-shadow;
+  }
+
+  .parallaxe[data-bento-hover="codex-v1"].bento-hover-active.bento-hover-pressed:not(:focus-within) {
+    translate:
+      calc(var(--bento-shift-x) * 0.35)
+      calc(var(--bento-shift-y) * 0.35);
+    scale: 0.995;
+    box-shadow: 0 10px 28px rgb(0 33 71 / 13%);
+  }
+
+  .parallaxe[data-bento-hover="codex-v1"]:focus-within {
+    translate: 0 0;
+    scale: 1;
+  }
+}
+
+@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .parallaxe[data-bento-hover="codex-v1"] {
+    background-image: none !important;
+    translate: none !important;
+    scale: none !important;
+  }
+}
